@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <style>
+        #chartdiv {
+          width: 100%;
+          height: 500px;
+        }
+        </style>
+
+        <!-- Resources -->
+        <script src="https://www.amcharts.com/lib/4/core.js"></script>
+        <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+        <script src="https://www.amcharts.com/lib/4/themes/material.js"></script>
+        <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    </head>
+
+    <body>
+
+        <!-- Chart code -->
+        <script>
+        am4core.ready(function() {
+
+        // Themes begin
+        am4core.useTheme(am4themes_material);
+        am4core.useTheme(am4themes_animated);
+        // Themes end
+
+        var chart = am4core.create("chartdiv", am4charts.ChordDiagram);
+        chart.hiddenState.properties.opacity = 0;
+
+        chart.dataSource.url = "https://raw.githubusercontent.com/Cherrybruin/chinavis2019/master/chord.json";
+
+        chart.dataFields.fromName = "from";
+        chart.dataFields.toName = "to";
+        chart.dataFields.value = "value";
+        //link template draggable
+        var link = chart.links.template;
+        link.fillOpacity = 0.6;
+
+        link.events.on("hit", function(_link){
+            link.show(false);
+        });
+
+
+        // make nodes draggable
+        var nodeTemplate = chart.nodes.template;
+        nodeTemplate.readerTitle = "Click to show/hide or drag to rearrange";
+        nodeTemplate.showSystemTooltip = true;
+        nodeTemplate.cursorOverStyle = am4core.MouseCursorStyle.pointer
+
+        }); // end am4core.ready()
+        </script>
+
+        <!-- HTML -->
+        <div id="chartdiv"></div>
+    </body>
+
+</html>
+
+
