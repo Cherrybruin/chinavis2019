@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js">
+<link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+<link rel="stylesheet" href="https://gitcdn.xyz/repo/goessner/mdmath/master/css/texmath.css">
+<link rel="stylesheet" href="https://gitcdn.xyz/repo/goessner/mdmath/master/css/vscode-texmath.css">
+
+</head><body class="markdown-body">
+<h1 id="quadtree-py-3" data-line="0" class="code-line">quadtree-py</h1>
+<h2 id="e58e9fe5a78be6ada5e9aaa4-3" data-line="3" class="code-line">原始步骤</h2>
+<ul>
+<li data-line="5" class="code-line">计算点间斥力</li>
+<li data-line="6" class="code-line">计算线条的弹力</li>
+<li data-line="7" class="code-line">计算阻力</li>
+<li data-line="8" class="code-line">更新速度</li>
+<li data-line="9" class="code-line">迭代</li>
+</ul>
+<h2 id="e4bc98e58c96e78988e69cac-3" data-line="11" class="code-line">优化版本</h2>
+<p data-line="13" class="code-line">优化版本主要是对于计算点间斥力的优化，原始计算每个点间的斥力为枚举两点，这样的复杂度是　<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></p>
+<p data-line="15" class="code-line">通过Quadtree可以优化到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span></p>
+<p data-line="17" class="code-line">主要思想在于缩点，对于符合一定条件的点，可以在计算时视作一个点，这样可以减少枚举的复杂的</p>
+<p data-line="19" class="code-line">Quadtree的思想在于对图空间的分割，简单实现是与图像空间大小成正相关的。但是实际上采用中位点对空间进行分割，可以达到更好的效果，类似的实现可以试试 KDTree</p>
+<h2 id="e68891e79a84e5ae9ee78eb0-3" data-line="22" class="code-line">我的实现</h2>
+<p data-line="24" class="code-line">在以上，实现了原始步骤的基础上，对于点间斥力的计算采用quadtree进行优化。</p>
+<p data-line="26" class="code-line">每次迭代完成更新quadtree。quadtree分为能四分和只能左右二分与上下二分三种情况。</p>
+
+</body></html>
